@@ -1,0 +1,56 @@
+1. syntaxhighlighter.zip插件安装最简单，只需要上传到plugins解压，然后激活
+http://alexgorbatchev.com/SyntaxHighlighter/
+添加编辑器快捷按钮
+/guoh.org/public_html/lifelog/wp-includes/js/quicktags.js
+edButtons[edButtons.length]=new edButton("ed_my_java_code","Java\u4ee3\u7801","[code lang='java']","[/code]","java");
+edButtons[edButtons.length]=new edButton("ed_my_javascript_code","JavaScript\u4ee3\u7801","[javascript]","[/javascript]","js");
+edButtons[edButtons.length]=new edButton("ed_my_c_code","C\u4ee3\u7801","[c]","[/c]","c");
+edButtons[edButtons.length]=new edButton("ed_my_cpp_code","C++\u4ee3\u7801","[cpp]","[/cpp]","cpp");
+
+
+2. WP-PostViews Plus
+/guoh.org/public_html/lifelog/wp-content/themes/twentyten/single.php
+加入
+<?php if(function_exists('the_views')) { the_views('Views', true); } ?>
+
+另外修改/guoh.org/public_html/lifelog/wp-content/plugins/wp-postviews-plus/postviews_plus.php
+这是一个固定的修改，我把浏览次数放到作者后面，用一个逗号隔开
+// Function: Display The Post Total Views
+function the_views($text_views=' Views', $display=true) {
+	global $post;
+	$post_views = intval(get_post_meta($post->ID, 'views', true)) + intval(get_post_meta($post->ID, 'bot_views', true));
+	if( $display ) {
+		echo(', <span id="wppvp_tv_' . $post->ID . '">' . number_format($post_views) . '</span>' . $text_views);
+		if( defined('WP_CACHE') && WP_CACHE ) {
+			global $pv_data;
+			$pv_data->add_cache_stats('tv');
+		}
+	} else {
+		return $post_views;
+	}
+}
+
+3. /guoh.org/public_html/lifelog/wp-includes/default-widgets.php
+修改Meta，超级链接之类的
+
+
+4.关闭Wordpress特定文字自动转化为表情图片
+http://codex.wordpress.org/Using_Smilies
+
+关闭半角自动转化为全角
+Admin  --  Appearance  --  Editor --  functions.php
+添加
+// Disable auto escape
+remove_filter('the_content', 'wptexturize');
+remove_filter('the_excerpt', 'wptexturize');
+remove_filter('comment_text', 'wptexturize');
+
+
+5. 上传图片显示Http error错误的解决方法
+如果拥有服务器的Root权限，直接去修改Apache的httpd.conf文件中的Mod_Security，关闭就好了；不过很多使用WordPress的朋友都没有root权限，但也有解决方法，修改WordPress所在目录的.htaccess,在其中加入下面的代码：
+SetEnvIfNoCase Request_URI /wp-admin/async-upload.php$ MODSEC_ENABLE=Off
+
+
+6. Error establishing a database connection
+/guoh.org/public_html/lifelog/wp-config.php
+记得修改数据库密码
