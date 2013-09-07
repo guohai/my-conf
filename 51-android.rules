@@ -1,0 +1,19 @@
+# A853 (pci-0000:00:1d.7-usb-0:2:1.0-scsi-0:0:0:0)
+SUBSYSTEM=="block", ENV{ID_CDROM}=="?*", ENV{ID_SERIAL}=="Motorola_A853_0403952D11008016-0:0", SYMLINK+="cdrom1", ENV{GENERATED}="1"
+
+# Android_Phone (pci-0000:00:1d.7-usb-0:2:1.0-scsi-0:0:0:2)
+SUBSYSTEM=="block", ENV{ID_CDROM}=="?*", ENV{ID_SERIAL}=="HTC_Android_Phone_HT1B3S300176-0:2", SYMLINK+="cdrom2", ENV{GENERATED}="1"
+
+# adb protocol on panda (PandaBoard)
+SUBSYSTEM=="usb", ATTR{idVendor}=="0451", ATTR{idProduct}=="d101", MODE="0600", OWNER="guohai"
+# fastboot protocol on panda (PandaBoard)
+SUBSYSTEM=="usb", ATTR{idVendor}=="0451", ATTR{idProduct}=="d022", MODE="0600", OWNER="guohai"
+# usbboot protocol on panda (PandaBoard)
+SUBSYSTEM=="usb", ATTR{idVendor}=="0451", ATTR{idProduct}=="d00f", MODE="0600", OWNER="guohai"
+# usbboot protocol on panda (PandaBoard ES)
+SUBSYSTEM=="usb", ATTR{idVendor}=="0451", ATTR{idProduct}=="d010", MODE="0600", OWNER="guohai"
+
+
+#plz perform 'sudo service udev restart' and then restart adb connection after you modify this file
+#if you do not want to reboot the system.
+
