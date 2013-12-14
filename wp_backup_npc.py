@@ -41,7 +41,7 @@ os.system('tar -zcf {0} {1}'.format(sqlDataName[0:-4] + '.tar.gz', sqlDataName))
 os.system('tar -zcf {0} {1}'.format(wpAppName, 'guoh.org/'))
 
 # 4. send data to my mail box
-os.system('mailx -s "WP_Backup_{0}" -a {1} -a {2} MY_GMAIL@gmail.com'.format(wpAppName[3:-7], wpAppName, sqlDataName[0:-4] + '.tar.gz'))
+os.system('mailx -s "WP_Backup {0}" -a {1} -a {2} MY_GMAIL@gmail.com'.format(wpAppName[3:-7], wpAppName, sqlDataName[0:-4] + '.tar.gz'))
 
 # 5. clear unused files
 os.system('rm {0}'.format(sqlDataName))
