@@ -31,17 +31,17 @@ sqlFileSize = checkFileSize(sqlDataName)
 if sqlFileSize < 1024L * 1024 * 5: # threshold we use to roughly tell if file is okay
 # send a mail to me and quit this program
 # tell admin to handle this issue and clear unused files by hand
-    os.system('mailx -s "WP_Backup_{0} failed. IMPORTANT!" MY_MAIL_BOX'.format(wpAppName[3:-7]))
+    os.system('echo "Go and do your job now" | mailx -s "WP_Backup_{0} failed. IMPORTANT!" MY_MAIL_BOX'.format(wpAppName[3:-7]))
     sys.exit(0)
 
 # 2. compress the sql data quitely, for debug purpose you can add 'v' option
 os.system('tar -zcf {0} {1}'.format(sqlDataName[0:-4] + '.tar.gz', sqlDataName)) #[0:-4] means cutting off '.sql'
 
 # 3. compress the blog program quitely, for debug purpose you can add 'v' option
-os.system('tar -zcf {0} {1}'.format(wpAppName, 'guoh.org/'))
+os.system('tar -zcPf {0} {1}'.format(wpAppName, 'ABSOLUTE_PATH_TO_MY_DATA_FOLDER'))
 
 # 4. send data to my mail box
-os.system('mailx -s "WP_Backup {0}" -a {1} -a {2} MY_GMAIL@gmail.com'.format(wpAppName[3:-7], wpAppName, sqlDataName[0:-4] + '.tar.gz'))
+os.system('echo "WP guoh.org backup" | mailx -s "WP_Backup {0}" -a {1} -a {2} MY_GMAIL@gmail.com'.format(wpAppName[3:-7], wpAppName, sqlDataName[0:-4] + '.tar.gz'))
 
 # 5. clear unused files
 os.system('rm {0}'.format(sqlDataName))
